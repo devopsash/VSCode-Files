@@ -1,1 +1,23 @@
 this is test file 
+
+# create_file_after_apply.pp
+
+exec { 'puppet_apply':
+  command   => 'puppet apply your_manifest.pp',
+  logoutput => true,
+  notify    => Exec['create_puppet_completed_file'],
+}
+
+exec { 'create_puppet_completed_file':
+  command     => '/bin/touch /etc/puppet-completed',
+  refreshonly => true,
+  path        => ['/bin', '/usr/bin'],
+  onlyif      => '/bin/test $? -eq 0',
+  before      => Exec['notify_puppet_apply_complete'],
+}
+
+exec { 'notify_puppet_apply_complete':
+  command => '/bin/echo "Puppet apply process completed"',
+  path    => ['/bin', '/usr/bin'],
+  onlyif  => '/bin/test -e /etc/puppet-completed',
+}
