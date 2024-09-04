@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Directory to search
+SEARCH_DIR="/path/to/directory"
+
+# Find files starting with "l"
+files=$(find "$SEARCH_DIR" -type f -name "l*")
+
+# Check if any files were found
+if [ -z "$files" ]; then
+    echo "No file start with L"
+else
+    echo "Files starting with 'l' found:"
+    echo "$files"
+    
+    # Uncomment and modify the following line to process each file if needed
+    # for file in $files; do
+    #     echo "Processing $file"
+    #     # Add your processing commands here
+    # done
+fi
