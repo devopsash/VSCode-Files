@@ -21,3 +21,13 @@ exec { 'notify_puppet_apply_complete':
   path    => ['/bin', '/usr/bin'],
   onlyif  => '/bin/test -e /etc/puppet-completed',
 }
+
+
+
+In 2024, I was promoted to Lead Linux & Automation Engineer, marking a significant milestone in my career. Along with successfully managing my day-to-day responsibilities in this role, I focused on delegating tasks effectively to enhance team productivity and optimize time management.
+
+Despite the shift in focus from on-premises environments to cloud migration, our team played a vital role in supporting this transition. We worked extensively on migrating applications, databases, and implementing necessary application changes while ensuring application monitoring, patching, and maintaining the security posture of the cloud environment. Simultaneously, I continued to oversee the maintenance of on-premises clusters, upper-stack application servers, and other operational tasks to ensure stability and continuity.
+
+Additionally, I gained access to and utilized new tools such as DNSMadeEasy, LoaderIO, ParkPlace, CrowdStrike, and Tanium, which enhanced our ability to manage infrastructure and security efficiently.
+
+Looking ahead to 2025, my immediate focus will be on leveraging these tools and driving automation and innovation across both cloud and hybrid environments. This includes aligning team efforts with the organization’s cloud-first strategy to achieve operational excellence and deliver measurable results.
