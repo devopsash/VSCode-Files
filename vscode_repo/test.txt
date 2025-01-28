@@ -1,33 +1,18 @@
-this is test file 
+#!/bin/bash
 
-# create_file_after_apply.pp
+# Define file names and email details
+input_file="yourfile.txt"
+temp_file="temp.txt"
+result_file="result.txt"
+recipient="your-email@example.com"
+subject="Processed File Result"
+body="Please find the attached processed file."
 
-exec { 'puppet_apply':
-  command   => 'puppet apply your_manifest.pp',
-  logoutput => true,
-  notify    => Exec['create_puppet_completed_file'],
-}
+# Remove the first line
+sed '1d' $input_file > $temp_file
 
-exec { 'create_puppet_completed_file':
-  command     => '/bin/touch /etc/puppet-completed',
-  refreshonly => true,
-  path        => ['/bin', '/usr/bin'],
-  onlyif      => '/bin/test $? -eq 0',
-  before      => Exec['notify_puppet_apply_complete'],
-}
+# Remove the last 5 lines
+head -n -5 $temp_file > $result_file
 
-exec { 'notify_puppet_apply_complete':
-  command => '/bin/echo "Puppet apply process completed"',
-  path    => ['/bin', '/usr/bin'],
-  onlyif  => '/bin/test -e /etc/puppet-completed',
-}
-
-
-
-In 2024, I was promoted to Lead Linux & Automation Engineer, marking a significant milestone in my career. Along with successfully managing my day-to-day responsibilities in this role, I focused on delegating tasks effectively to enhance team productivity and optimize time management.
-
-Despite the shift in focus from on-premises environments to cloud migration, our team played a vital role in supporting this transition. We worked extensively on migrating applications, databases, and implementing necessary application changes while ensuring application monitoring, patching, and maintaining the security posture of the cloud environment. Simultaneously, I continued to oversee the maintenance of on-premises clusters, upper-stack application servers, and other operational tasks to ensure stability and continuity.
-
-Additionally, I gained access to and utilized new tools such as DNSMadeEasy, LoaderIO, ParkPlace, CrowdStrike, and Tanium, which enhanced our ability to manage infrastructure and security efficiently.
-
-Looking ahead to 2025, my immediate focus will be on leveraging these tools and driving automation and innovation across both cloud and hybrid environments. This includes aligning team efforts with the organization’s cloud-first strategy to achieve operational excellence and deliver measurable results.
+# Send the email with the result file
+echo "$body" | mailx -s "$subject" -a $result_file $recipient
